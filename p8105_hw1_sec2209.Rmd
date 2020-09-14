@@ -1,24 +1,40 @@
 ---
-title: "p8105_hw1_sec2209"
+title: "P8105 Homework 1"
 author: "sarah8105"
 date: "2020-09-14"
 output: github_document
 ---
 
 
-I'm an R Markdown document! 
+This is my first homework assignment for P8105. This assignment demonstrates the use of git and R Markdown documents.
 
-# Section 1
 
-Here's a **code chunk** that samples from 
-a _normal distribution_:
+## Problem 1
 
-```{r}
-samp = rnorm(100)
-length(samp)
+The following code chunk creates a dataframe comprised of:
+
+* A random sample of size **10** from a standard Normal distribution
+* A logical vector indicating whether elements of the sample are greater than 0
+* A character vector of length **10**
+* A factor vector of length **10**, with factors "low", "middle", or "high"
+
+The code chunk then attempts to take the mean of each variable.
+
+```{r problem1_a}
+library(tidyverse)
+
+problem1_df = tibble(
+  vec_numeric = rnorm(10),
+  vec_logical = ifelse(vec_numeric > 0, TRUE, FALSE),
+  vec_character = c("This", "is", "a", "character", "vector", "for", "the", "first", "homework", "problem"),
+  vec_factor = factor(c("low", "middle", "high", "low", "low", "middle", "high", "low", "middle", "middle"))
+)
+
+mean(problem1_df$vec_numeric)
+
+mean(problem1_df$vec_logical)
+
+mean(problem1_df$vec_character)
+
+mean(problem1_df$vec_factor)
 ```
-
-# Section 2
-
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
