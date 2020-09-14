@@ -38,3 +38,16 @@ mean(problem1_df$vec_character)
 
 mean(problem1_df$vec_factor)
 ```
+
+The mean of the random numeric variable is `r round(mean(problem1_df$vec_numeric), 2)` and the mean of the logical variable is `r mean(problem1_df$vec_logical)`. Means are unable to be calculated from the character or factor variables since these variables cannot be implicitly coerced into numeric variables.
+
+The following second code chunk attempts to convert the logical, character, and factor vectors to numeric and multiplies the result by the random sample.
+
+```{r problem1_b}
+as.numeric(problem1_df$vec_logical)
+
+as.numeric(problem1_df$vec_character)
+
+as.numeric(problem1_df$vec_factor)
+
+```
