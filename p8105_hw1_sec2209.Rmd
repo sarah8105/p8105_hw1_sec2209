@@ -1,0 +1,24 @@
+---
+title: "p8105_hw1_sec2209"
+author: "sarah8105"
+date: "2020-09-14"
+output: github_document
+---
+
+
+I'm an R Markdown document! 
+
+# Section 1
+
+Here's a **code chunk** that samples from 
+a _normal distribution_:
+
+```{r}
+samp = rnorm(100)
+length(samp)
+```
+
+# Section 2
+
+I can take the mean of the sample, too!
+The mean is `r mean(samp)`.
