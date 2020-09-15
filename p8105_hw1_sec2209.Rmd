@@ -108,7 +108,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)
   ylab("Flipper Length (mm)") +
   ggtitle("Plot of Flipper Length by Bill Length")
 
-ggsave("p8105_hw1_problem2_sec2209.png")
+ggsave("./p8105_hw1_problem2_sec2209.png")
 
 ```
 
