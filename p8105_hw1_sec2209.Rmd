@@ -90,6 +90,8 @@ The mean flipper length is `r round(mean(penguins$flipper_length_mm, na.rm = TRU
 The next code chunk creates a scatterplot of flipper length by bill length, color coded by species of penguin.
 
 ```{r problem2_b}
-ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + xlab("Bill Length (mm)") + ylab("Flipper Length (mm)")
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + xlab("Bill Length (mm)") + ylab("Flipper Length (mm)") + ggtitle("Plot of Flipper Length by Bill Length")
+
+ggsave("p8105_hw1_problem2_sec2209.png")
 
 ```
