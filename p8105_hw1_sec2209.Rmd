@@ -16,7 +16,7 @@ The following code chunk creates a dataframe comprised of:
 * A random sample of size **10** from a standard Normal distribution
 * A logical vector indicating whether elements of the sample are greater than 0
 * A character vector of length **10**
-* A factor vector of length **10**, with factors "low", "middle", or "high"
+* A factor vector of length **10**, with factors _low_, _middle_, or _high_
 
 The code chunk then attempts to take the mean of each variable.
 
@@ -65,3 +65,19 @@ R implicitly coerces logical variables to numeric when taking the mean. Using th
 ## Problem 2
 
 Problem 2 downloads the `penguins` dataset from the `palmerpenguins` package.
+
+```{r problem2_a}
+data("penguins", package = "palmerpenguins")
+
+```
+
+The penguins dataset contains `r nrow(penguins)` observations and `r ncol(penguins)` variables. Variables in this dataset include:
+
+* `r colnames(penguins[1])`
+* `r colnames(penguins[2])`
+* `r colnames(penguins[3])`
+* `r colnames(penguins[4])`
+* `r colnames(penguins[5])`
+* `r colnames(penguins[6])`
+* `r colnames(penguins[7])`
+* `r colnames(penguins[8])`
