@@ -43,11 +43,25 @@ The mean of the random numeric variable is `r round(mean(problem1_df$vec_numeric
 
 The following second code chunk attempts to convert the logical, character, and factor vectors to numeric and multiplies the result by the random sample.
 
-```{r problem1_b}
+```{r problem1_b, results = 'hide'}
 as.numeric(problem1_df$vec_logical)
+
+vec_log_to_num = as.numeric(problem1_df$vec_logical) * problem1_df$vec_numeric
 
 as.numeric(problem1_df$vec_character)
 
+vec_char_to_num = as.numeric(problem1_df$vec_character) * problem1_df$vec_numeric
+
 as.numeric(problem1_df$vec_factor)
 
+vec_fact_to_num = as.numeric(problem1_df$vec_factor) * problem1_df$vec_numeric
+
 ```
+
+The factor and logical vectors are successfully converted to numeric vectors (with _TRUE = 1_ and _FALSE = 0_ and with _low = 2_, _middle = 3_ and _high = 1_ respectively). 
+
+R implicitly coerces logical variables to numeric when taking the mean. Using the as.numeric function can explicitly convert a factor variable to its underlying numeric code. The character vector cannot be implicitly or explicitly converted to numeric, so a mean cannot be calculated.
+
+## Problem 2
+
+Problem 2 downloads the `penguins` dataset from the `palmerpenguins` package.
