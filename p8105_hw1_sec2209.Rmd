@@ -81,3 +81,15 @@ The penguins dataset contains `r nrow(penguins)` observations and `r ncol(pengui
 * `r colnames(penguins[6])`
 * `r colnames(penguins[7])`
 * `r colnames(penguins[8])`
+
+
+The species in this dataset include: `r unique(penguins$species)`. Years included in this dataset are `r unique(penguins$year)`.
+
+The mean flipper length is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm, and the mean bill length is `r round(mean(penguins$bill_length_mm, na.rm = TRUE), 2)` mm.
+
+The next code chunk creates a scatterplot of flipper length by bill length, color coded by species of penguin.
+
+```{r problem2_b}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + xlab("Bill Length (mm)") + ylab("Flipper Length (mm)")
+
+```
