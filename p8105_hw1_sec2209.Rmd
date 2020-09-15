@@ -30,6 +30,7 @@ problem1_df =
 
 ```
 
+
 The next code chunk attempts to take the mean of each variable.
 
 ```{r problem1_a_means}
@@ -55,9 +56,10 @@ as.numeric(pull(problem1_df, factor_vec))
 
 ```
 
-The factor and logical vectors are successfully converted to numeric vectors (with _TRUE = 1_ and _FALSE = 0_ and with _low = 2_, _middle = 3_ and _high = 1_ respectively). 
+The factor and logical vectors are successfully converted to numeric vectors (with _TRUE = 1_ and _FALSE = 0_ and with _low = 2_, _middle = 3_ and _high = 1_ respectively).
 
 Using the `as.numeric` function can explicitly convert a factor variable to its underlying numeric code, though this may not be a meaningful numeric value. The character vector cannot be implicitly or explicitly converted to numeric, so a mean cannot be calculated.
+
 
 Next, the code multiplies the results of the conversion of the logical, character, and factor vectors to numeric by the random sample.
 
@@ -99,6 +101,7 @@ The species in this data set include: `r unique(pull(penguins, species))`. Years
 
 The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm, and the mean bill length is `r round(mean(pull(penguins, bill_length_mm), na.rm = TRUE), 2)` mm.
 
+
 The next code chunk creates a scatter plot of flipper length by bill length, color coded by species of penguin.
 
 ```{r problem2_b_plot}
@@ -108,7 +111,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)
   ylab("Flipper Length (mm)") +
   ggtitle("Plot of Flipper Length by Bill Length")
 
-ggsave("./p8105_hw1_problem2_sec2209.png")
+ggsave("p8105_hw1_problem2_sec2209.png")
 
 ```
 
