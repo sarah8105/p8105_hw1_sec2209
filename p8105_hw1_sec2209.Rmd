@@ -1,77 +1,89 @@
 ---
 title: "P8105 Homework 1"
 author: "sarah8105"
-date: "2020-09-14"
 output: github_document
 ---
 
-
 This is my first homework assignment for P8105. This assignment demonstrates the use of git and R Markdown documents.
 
+```{r libraries}
+library(tidyverse)
+```
 
 ## Problem 1
 
-The following code chunk creates a dataframe comprised of:
+The following code chunk creates a data frame comprised of:
 
 * A random sample of size **10** from a standard Normal distribution
 * A logical vector indicating whether elements of the sample are greater than 0
 * A character vector of length **10**
 * A factor vector of length **10**, with factors _low_, _middle_, or _high_
 
-The code chunk then attempts to take the mean of each variable.
+```{r problem1_a_df}
+problem1_df = 
+  tibble(
+    samp = rnorm(10),
+    samp_gt_0 = samp > 0,
+    char_vec = c("This", "is", "a", "character", "vector", "for", "the", "first", "homework", "problem"),
+    factor_vec = factor(c("low", "middle", "high", "low", "low", "middle", "high", "low", "middle", "middle"))
+  )
 
-```{r problem1_a}
-library(tidyverse)
-
-problem1_df = tibble(
-  vec_numeric = rnorm(10),
-  vec_logical = ifelse(vec_numeric > 0, TRUE, FALSE),
-  vec_character = c("This", "is", "a", "character", "vector", "for", "the", "first", "homework", "problem"),
-  vec_factor = factor(c("low", "middle", "high", "low", "low", "middle", "high", "low", "middle", "middle"))
-)
-
-mean(problem1_df$vec_numeric)
-
-mean(problem1_df$vec_logical)
-
-mean(problem1_df$vec_character)
-
-mean(problem1_df$vec_factor)
 ```
 
-The mean of the random numeric variable is `r round(mean(problem1_df$vec_numeric), 2)` and the mean of the logical variable is `r mean(problem1_df$vec_logical)`. Means are unable to be calculated from the character or factor variables since these variables cannot be implicitly coerced into numeric variables.
+The next code chunk attempts to take the mean of each variable.
 
-The following second code chunk attempts to convert the logical, character, and factor vectors to numeric and multiplies the result by the random sample.
+```{r problem1_a_means}
+mean(pull(problem1_df, samp))
 
-```{r problem1_b, results = 'hide'}
-as.numeric(problem1_df$vec_logical)
+mean(pull(problem1_df, samp_gt_0))
 
-vec_log_to_num = as.numeric(problem1_df$vec_logical) * problem1_df$vec_numeric
+mean(pull(problem1_df, char_vec))
 
-as.numeric(problem1_df$vec_character)
+mean(pull(problem1_df, factor_vec))
+```
 
-vec_char_to_num = as.numeric(problem1_df$vec_character) * problem1_df$vec_numeric
+The mean of the random numeric variable is `r round(mean(pull(problem1_df, samp)), 2)` and the mean of the logical variable is `r mean(pull(problem1_df, samp_gt_0))`. Means are unable to be calculated from the character or factor variables since these variables cannot be implicitly coerced into numeric variables. R implicitly coerces logical variables to numeric when taking the mean. 
 
-as.numeric(problem1_df$vec_factor)
+The following code chunk attempts to convert the logical, character, and factor vectors to numeric.
 
-vec_fact_to_num = as.numeric(problem1_df$vec_factor) * problem1_df$vec_numeric
+```{r problem1_b_convert}
+as.numeric(pull(problem1_df, samp_gt_0))
+
+as.numeric(pull(problem1_df, char_vec))
+
+as.numeric(pull(problem1_df, factor_vec))
 
 ```
 
 The factor and logical vectors are successfully converted to numeric vectors (with _TRUE = 1_ and _FALSE = 0_ and with _low = 2_, _middle = 3_ and _high = 1_ respectively). 
 
-R implicitly coerces logical variables to numeric when taking the mean. Using the as.numeric function can explicitly convert a factor variable to its underlying numeric code. The character vector cannot be implicitly or explicitly converted to numeric, so a mean cannot be calculated.
+Using the `as.numeric` function can explicitly convert a factor variable to its underlying numeric code, though this may not be a meaningful numeric value. The character vector cannot be implicitly or explicitly converted to numeric, so a mean cannot be calculated.
+
+Next, the code multiplies the results of the conversion of the logical, character, and factor vectors to numeric by the random sample.
+
+
+```{r problem1_b_multiply, results = 'hide'}
+as.numeric(pull(problem1_df, samp_gt_0)) * pull(problem1_df, samp)
+
+as.numeric(pull(problem1_df, char_vec)) * pull(problem1_df, samp)
+
+as.numeric(pull(problem1_df, factor_vec)) * pull(problem1_df, samp)
+
+```
+
+This code demonstrates that you can multiply a variable that gets converted to numeric by a numeric variable.
+
 
 ## Problem 2
 
-Problem 2 downloads the `penguins` dataset from the `palmerpenguins` package.
+Problem 2 downloads the `penguins` data set from the `palmerpenguins` package.
 
-```{r problem2_a}
+```{r problem2_a_load}
 data("penguins", package = "palmerpenguins")
 
 ```
 
-The penguins dataset contains `r nrow(penguins)` observations and `r ncol(penguins)` variables. Variables in this dataset include:
+The penguins data set contains `r nrow(penguins)` observations and `r ncol(penguins)` variables. Variables in this data set include:
 
 * `r colnames(penguins[1])`
 * `r colnames(penguins[2])`
@@ -83,15 +95,21 @@ The penguins dataset contains `r nrow(penguins)` observations and `r ncol(pengui
 * `r colnames(penguins[8])`
 
 
-The species in this dataset include: `r unique(penguins$species)`. Years included in this dataset are `r unique(penguins$year)`.
+The species in this data set include: `r unique(pull(penguins, species))`. Years included in this data set are `r unique(pull(penguins, year))`.
 
-The mean flipper length is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm, and the mean bill length is `r round(mean(penguins$bill_length_mm, na.rm = TRUE), 2)` mm.
+The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm, and the mean bill length is `r round(mean(pull(penguins, bill_length_mm), na.rm = TRUE), 2)` mm.
 
-The next code chunk creates a scatterplot of flipper length by bill length, color coded by species of penguin.
+The next code chunk creates a scatter plot of flipper length by bill length, color coded by species of penguin.
 
-```{r problem2_b}
-ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + xlab("Bill Length (mm)") + ylab("Flipper Length (mm)") + ggtitle("Plot of Flipper Length by Bill Length")
+```{r problem2_b_plot}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + 
+  geom_point() +
+  xlab("Bill Length (mm)") +
+  ylab("Flipper Length (mm)") +
+  ggtitle("Plot of Flipper Length by Bill Length")
 
 ggsave("p8105_hw1_problem2_sec2209.png")
 
 ```
+
+From this scatterplot, it is apparent that flipper length and bill length are positively correlated. Flipper and bill lengths also tend to be clustered by species. The Adelie species generally exhibit lower bill lengths and flipper lengths. The Gentoo species generally exhibit higher bill lengths and flipper lengths. The Chinstrap species generally exhibit higher bill lengths but lower flipper lengths.
